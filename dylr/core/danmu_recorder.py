@@ -1,4 +1,5 @@
 import _thread
+import datetime
 import gzip
 import os
 import time
@@ -32,14 +33,18 @@ class DanmuRecorder:
         logger.info_and_print(f'开始录制 {self.room_name}({self.room_id}) 的弹幕')
 
         download_path = config.get_download_path()
+        room_path = f"{self.room.room_id}-{self.room.room_name}"
 
         if not os.path.exists(download_path):
             os.mkdir(download_path)
-        if not os.path.exists(f"{download_path}/{self.room_name}"):
-            os.mkdir(f"{download_path}/{self.room_name}")
+        if not os.path.exists(f"{download_path}/{room_path}"):
+            os.mkdir(f"{download_path}/{room_path}")
 
-        start_time_str = time.strftime('%Y%m%d_%H%M%S', self.start_time)
-        self.filename = f"{download_path}/{self.room_name}/{start_time_str}.xml"
+        dt = datetime.datetime.now()
+        now_str = dt.strftime('%Y%m%d-%H%M%S-%f')[:-3]
+        danmaku_filename = f'录制-{self.room.room_id}-{now_str}-{self.room_info.get_title()}.xml'
+
+        self.filename = f"{download_path}/{room_path}/{danmaku_filename}"
         # 写入文件头部数据
         with open(self.filename, 'w', encoding='UTF-8') as file:
             file.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"

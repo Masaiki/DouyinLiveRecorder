@@ -34,3 +34,8 @@ class RoomInfo:
         if not self.room_json or 'owner' not in self.room_json:
             return None
         return self.room_json['owner']['nickname']
+
+    def get_title(self):
+        if not self.room_json:
+            return None
+        return self.room_json.get('title')

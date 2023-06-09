@@ -1,5 +1,6 @@
 import threading
 import time
+import datetime
 import traceback
 from typing import Optional
 
@@ -30,15 +31,17 @@ class Recording:
             return False
 
         now = time.localtime()
-        now_str = time.strftime('%Y%m%d_%H%M%S', now)
+        dt = datetime.datetime.now()
+        now_str = dt.strftime('%Y%m%d-%H%M%S-%f')[:-3]
         download_path = config.get_download_path()
-        video_filename = f"{download_path}/{self.room.room_name}/{now_str}.flv"
+        video_filename = f'录制-{self.room.room_id}-{now_str}-{self.room_info.get_title()}.flv'
+        video_path = f"{download_path}/{self.room.room_id}-{self.room.room_name}/{video_filename}"
 
         try:
-            plugin.on_live_start(self.room, video_filename)
+            plugin.on_live_start(self.room, self.room_info, video_filename)
         except:
             traceback.print_exc()
-        self.start_recording_video(video_filename)
+        self.start_recording_video(video_path)
         if self.room.record_danmu:
             self.start_recording_danmu(now)
         return True

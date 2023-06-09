@@ -33,7 +33,7 @@ def on_close():
     ...
 
 
-def on_live_start(room, filename):
+def on_live_start(room, room_info, filename):
     """
     直播开始时
     :param room: 直播间
@@ -42,7 +42,7 @@ def on_live_start(room, filename):
     ...
 
 
-def on_live_end(room, file):
+def on_live_end(room, room_info, file):
     """
     直播结束时
     :param room: 直播间
