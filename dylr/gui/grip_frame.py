@@ -56,7 +56,7 @@ class GripFrame(ttk.LabelFrame):
         label6.grid(row=self._index, column=5, sticky=tk.EW)
 
         btn_frame = tk.Frame(self, bg='#FFFFFF', relief='ridge', borderwidth=2)
-        ttk.Button(btn_frame, text='打开目录', command=partial(self._open_explorer, 'download/' + name)) \
+        ttk.Button(btn_frame, text='打开目录', command=partial(self._open_explorer, os.path.join(config.get_download_path(), f"{web_rid}-{name}"))) \
             .grid(row=0, column=0, sticky=tk.EW)
         # ttk.Button(btn_frame, text='房间设置') \
         #     .grid(row=0, column=1, sticky=tk.EW)

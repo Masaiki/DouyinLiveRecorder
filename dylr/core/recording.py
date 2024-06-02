@@ -74,7 +74,7 @@ class Recording:
     def start_recording_danmu(self, start_time):
         if self.danmu_recorder is not None:
             return
-        self.danmu_recorder = DanmuRecorder(self.room, self.room_info.get_real_room_id(), start_time)
+        self.danmu_recorder = DanmuRecorder(self.room, self.room_info, start_time)
         t = threading.Thread(target=self.danmu_recorder.start)
         t.setDaemon(True)
         t.start()

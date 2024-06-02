@@ -14,11 +14,12 @@ from dylr.util import logger, cookie_utils
 
 
 class DanmuRecorder:
-    def __init__(self, room, room_real_id, start_time=None):
+    def __init__(self, room, room_info, start_time=None):
         self.room = room
         self.room_id = room.room_id
         self.room_name = room.room_name
-        self.room_real_id = room_real_id
+        self.room_info = room_info
+        self.room_real_id = room_info.get_real_room_id()
         self.start_time = start_time
         self.ws = None
         self.stop_signal = False
